@@ -1,6 +1,6 @@
 angular-rangeslider
 ===================
-_Current version: 0.0.12_
+_Current version: 0.0.6_
 
 Angular RangeSlider is a directive that creates an interactive slider that allows a user to change model values.
 
@@ -8,41 +8,8 @@ It has been styled to match form elements styled by [Twitter's Bootstrap CSS fra
 
 #### Requirements
 
-- Angular (v1.0.8+)
+- Angular (v1.1.4+)
 - jQuery (v1.7+)
-
-Looking for collaborators
--------------------------
-
-This directive was written for a project completed way back in 2013. I've not needed to use it since and have no plans (or time) to continue development / maintenance.
-
-If anyone would like to become a collaborator please let me know: [@danielcrisp82](https://twitter.com/danielcrisp82)
-
-Installation
-------------
-
-Download the files from Github or use Bower:
-
-    $ bower install angular-rangeslider
-
-Add the JS and CSS to your page:
-
-    <script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
-    <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css">
-
-Add the `ui-rangeSlider` module as a dependency for your app: `angular.module('myApp', ['ui-rangeSlider']);`
-
-Bootstrap is not required.
-
-If you use SCSS & Compass you can include the source SCSS directly into your project CSS if you add `bower_components` to your include path:
-
-    @import "angular-rangeslider/scss/rangeSlider"; // requires Compass
-
-Demo
-----
-
- - [Demo - Angular v.1.1.*](http://danielcrisp.github.io/angular-rangeslider/demo/)
- - [Legacy Demo - Angular v.1.0.*](http://danielcrisp.github.io/angular-rangeslider/demo/legacy.html)
 
 GitHub Pages
 ------------
@@ -92,8 +59,6 @@ Options are set as attributes on the `<div range-slider>`
 `pin-handle` - disable/hide one handle, default: null - options: 'min' | 'max'
 
 `prevent-equal-min-max` - prevent the `min` and `max` values from being equal. The `step` value is used to set the minimum difference, otherwise a value of `1` is used.
-
-`attach-handle-values` - move the value labels in sync with the slider handles when `true`, default: `false`
 
 Some more examples
 ------------------
@@ -169,41 +134,13 @@ If you would like only allow setting one value, effectively creating a single-va
     
 ![Pinned example](screenshots/pinned.png)
 
-### Move values with handles
-
-Set the attach-handle-values attribute to true to have the values move with the slider handles. This works for either horizontal:
-
-    <div range-slider min="0" max="100" model-min="min" model-max="max" attach-handle-values="true"></div>
-![Attached handles horizontal example](screenshots/attached-handles-horizontal.png)
-
-or vertical:
-
-    <div range-slider min="0" max="100" model-min="min" model-max="max" attach-handle-values="true" orientation="vertical"></div>
-![Attached handles vertical example](screenshots/attached-handles-vertical.png)
-
-Angular 1.0.* Support
----------------------
-
-If you use this directive with an older version of Angular (e.g. v1.0.*) then the directive automatically detects this and switches on legacy support.
-
-This basically changes the optional isolate scope properties `disabled`, `modelMin` and `modelMax` so that they are no longer optional and must always be defined on the directive element.
-
-So, this would give an error (`Error: Non-assignable model expression: undefined (directive: rangeSlider)`) if you were using Angular v1.0.8:
-
-    <div range-slider min="0" max="100" model-min="demo1.min" model-max="demo1.max"></div>
-
-However this would work correctly:
-
-    <div range-slider min="0" max="100" model-min="demo1.min" model-max="demo1.max" disabled="false"></div>
-
-Note, only tested in v1.0.8
-
 To Do
 -----
 
 - Remove full jQuery dependency
+- Make it work in older Angular versions
+- Add option to move values with handles
 - Improve behaviour when model values are not valid (e.g. min is greater than max)
-- Improve the dev architecture (add jshint, tests, minification, auto-versioning etc)
 
 
 Known Issues

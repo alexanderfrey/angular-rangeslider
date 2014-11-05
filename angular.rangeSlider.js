@@ -1,7 +1,7 @@
 /*
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.12
+ *  Version: 0.0.9
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
@@ -37,9 +37,6 @@
 
 (function() {
     'use strict';
-
-    // check if we need to support legacy angular
-    var legacySupport = (angular.version.major === 1 && angular.version.minor === 0);
 
     /**
      * RangeSlider, allows user to define a range of values using a slider
@@ -110,33 +107,7 @@
                 isNumber = function(n) {
                     // console.log(n);
                     return !isNaN(parseFloat(n)) && isFinite(n);
-                },
-
-                scopeOptions = {
-                    disabled: '=?',
-                    min: '=',
-                    max: '=',
-                    modelMin: '=?',
-                    modelMax: '=?',
-                    onHandleDown: '&', // calls optional function when handle is grabbed
-                    onHandleUp: '&', // calls optional function when handle is released 
-                    orientation: '@', // options: horizontal | vertical | vertical left | vertical right
-                    step: '@',
-                    decimalPlaces: '@',
-                    filter: '@',
-                    filterOptions: '@',
-                    showValues: '@',
-                    pinHandle: '@',
-                    preventEqualMinMax: '@',
-                    attachHandleValues: '@'
                 };
-
-            if (legacySupport) {
-                // make optional properties required
-                scopeOptions.disabled = '=';
-                scopeOptions.modelMin = '=';
-                scopeOptions.modelMax = '=';
-            }
 
             // if (EVENT < 4) {
             //     // some sort of touch has been detected
@@ -162,7 +133,24 @@
                     '</div>',
                     '</div>'
                 ].join(''),
-                scope: scopeOptions,
+                scope: {
+                    disabled: '=?',
+                    min: '=',
+                    max: '=',
+                    modelMin: '=?',
+                    modelMax: '=?',
+                    onHandleDown: '&', // calls optional function when handle is grabbed
+                    onHandleUp: '&', // calls optional function when handle is released 
+                    orientation: '@', // options: horizontal | vertical | vertical left | vertical right
+                    step: '@',
+                    decimalPlaces: '@',
+                    filter: '@',
+                    filterOptions: '@',
+                    showValues: '@',
+                    pinHandle: '@',
+                    preventEqualMinMax: '@',
+                    attachHandleValues: '@'
+                },
                 link: function(scope, element, attrs, controller) {
 
                     /** 
@@ -546,11 +534,11 @@
                                         if (index === 0) {
 
                                             // update model as we slide
-                                            scope.modelMin = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
+                                            scope.modelMin = parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces);
 
                                         } else if (index === 1) {
 
-                                            scope.modelMax = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
+                                            scope.modelMax = parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces);
                                         }
 
                                         // update angular
@@ -570,7 +558,6 @@
 
                                     // unbind listeners
                                     $document.off(moveEvent);
-                                    $document.off(offEvent);
 
                                     angular.element('body').removeClass('ngrs-touching');
 
